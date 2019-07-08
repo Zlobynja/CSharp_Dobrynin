@@ -5,11 +5,11 @@ using OpenQA.Selenium.Support.UI;
 
 namespace Addressbook_web_tests
 {
-    public class ContactHelper
+    public class ContactHelper : HelperBase
     {
-        private IWebDriver driver;
 
-        public ContactHelper(IWebDriver driver)
+
+        public ContactHelper(IWebDriver driver) : base(driver)
         {
             this.driver = driver;
         }

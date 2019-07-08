@@ -68,6 +68,7 @@
     <Compile Include="Figure.cs" />
     <Compile Include="GroupData.cs" />
     <Compile Include="GroupHelper.cs" />
+    <Compile Include="HelperBase.cs" />
     <Compile Include="LoginHelper.cs" />
     <Compile Include="NavigationHelper.cs" />
     <Compile Include="Square.cs" />
