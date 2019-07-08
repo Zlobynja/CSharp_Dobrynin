@@ -1,12 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿
 
-namespace WebAddressbookTests
+namespace Addressbook_web_tests
 {
-    class ContactData
+    public class ContactData
     {
         private string firstname;
         private string middlename = "";
@@ -27,15 +23,10 @@ namespace WebAddressbookTests
         private string bmonth = "";
         private string byear = "";
         private string notes = "";
-
-
-
-
         public ContactData(string firstname)
         {
             this.firstname = firstname;
         }
-
         public string Firstname
         {
             get
@@ -47,7 +38,6 @@ namespace WebAddressbookTests
                 firstname = value;
             }
         }
-
         public string Middlename
         {
             get
@@ -59,7 +49,6 @@ namespace WebAddressbookTests
                 middlename = value;
             }
         }
-
         public string Lastname
         {
             get
@@ -71,7 +60,6 @@ namespace WebAddressbookTests
                 lastname = value;
             }
         }
-
         public string Nickname
         {
             get
@@ -83,7 +71,6 @@ namespace WebAddressbookTests
                 nickname = value;
             }
         }
-
         public string Title
         {
             get
@@ -95,7 +82,6 @@ namespace WebAddressbookTests
                 title = value;
             }
         }
-
         public string Company
         {
             get
@@ -107,7 +93,6 @@ namespace WebAddressbookTests
                 company = value;
             }
         }
-
         public string CompanyAddress
         {
             get
@@ -119,7 +104,6 @@ namespace WebAddressbookTests
                 companyaddress = value;
             }
         }
-
         public string HomeTel
         {
             get
@@ -131,7 +115,6 @@ namespace WebAddressbookTests
                 hometel = value;
             }
         }
-
         public string MobileTel
         {
             get
@@ -143,7 +126,6 @@ namespace WebAddressbookTests
                 mobiletel = value;
             }
         }
-
         public string WorkTel
         {
             get
@@ -155,7 +137,6 @@ namespace WebAddressbookTests
                 worktel = value;
             }
         }
-
         public string Fax
         {
             get
@@ -167,7 +148,6 @@ namespace WebAddressbookTests
                 fax = value;
             }
         }
-
         public string Email1
         {
             get
@@ -179,7 +159,6 @@ namespace WebAddressbookTests
                 email1 = value;
             }
         }
-
         public string Email2
         {
             get
@@ -191,7 +170,6 @@ namespace WebAddressbookTests
                 email2 = value;
             }
         }
-
         public string Email3
         {
             get
@@ -203,7 +181,6 @@ namespace WebAddressbookTests
                 email3 = value;
             }
         }
-
         public string Homepage
         {
             get
@@ -215,7 +192,6 @@ namespace WebAddressbookTests
                 homepage = value;
             }
         }
-
         public string Bday
         {
             get
@@ -227,7 +203,6 @@ namespace WebAddressbookTests
                 bday = value;
             }
         }
-
         public string Bmonth
         {
             get
@@ -239,7 +214,6 @@ namespace WebAddressbookTests
                 bmonth = value;
             }
         }
-
         public string Byear
         {
             get
@@ -251,7 +225,6 @@ namespace WebAddressbookTests
                 byear = value;
             }
         }
-
         public string Notes
         {
             get

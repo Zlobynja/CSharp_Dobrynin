@@ -1,18 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿
 
 namespace Addressbook_web_tests
 {
-    class GroupData
+    public class GroupData
     {
         private string name;
         private string header = "";
         private string footer = "";
-
-       public GroupData(string name)
+        public GroupData(string name)
         {
             this.name = name;
         }
@@ -26,8 +21,8 @@ namespace Addressbook_web_tests
             {
                 name = value;
             }
-        }
 
+        }
         public string Header
         {
             get
@@ -39,7 +34,6 @@ namespace Addressbook_web_tests
                 header = value;
             }
         }
-
         public string Footer
         {
             get

@@ -1,34 +1,23 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿
 
 namespace Addressbook_web_tests
+
 {
-    class AccountData
+    public class AccountData
     {
         private string username;
         private string password;
-
-        public AccountData (string username, string password)
-        {
-            this.username = username;
-            this.password = password;
-        }
-
         public string Username
         {
             get
             {
-                return username; 
+                return username;
             }
             set
             {
                 username = value;
             }
         }
-
         public string Password
         {
             get
@@ -39,6 +28,11 @@ namespace Addressbook_web_tests
             {
                 password = value;
             }
+        }
+        public AccountData(string username, string password)
+        {
+            this.username = username;
+            this.password = password;
         }
     }
 }
