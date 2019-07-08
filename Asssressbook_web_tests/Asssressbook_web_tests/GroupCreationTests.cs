@@ -11,17 +11,18 @@ namespace Addressbook_web_tests
         [Test]
         public void GroupCreationTest()
         {
-            GoToHomePage();
-            Login(new AccountData("admin", "secret"));
-            GoToGroupsPage();
-            InitGroupCreation();
+            navigator.GoToHomePage();
+            loginHelper.Login(new AccountData("admin", "secret"));
+            navigator.GoToGroupsPage();
+            groupHelper.InitGroupCreation();
             GroupData group = new GroupData("gr4");
             group.Header = "gr4header";
             group.Footer = "gr4footer";
-            FillGroupForm(group);
-            SubmitGroupCreation();
-            ReturnToGroupsPage();
+            groupHelper.FillGroupForm(group);
+            groupHelper.SubmitGroupCreation();
+            navigator.ReturnToGroupsPage();
         }
+
 
     }
 }
