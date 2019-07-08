@@ -14,19 +14,21 @@ namespace Addressbook_web_tests
             this.driver = driver;
         }
 
-        public void InitContactCreation()
+        public ContactHelper InitContactCreation()
         {
 
             driver.FindElement(By.LinkText("add new")).Click();
+            return this;
         }
 
-        public void SubmitContactCreation()
+        public ContactHelper SubmitContactCreation()
         {
 
             driver.FindElement(By.Name("submit")).Click();
+            return this;
         }
 
-        public void FillContactForm(ContactData contact)
+        public ContactHelper FillContactForm(ContactData contact)
         {
 
             driver.FindElement(By.Name("firstname")).Clear();
@@ -74,6 +76,8 @@ namespace Addressbook_web_tests
             driver.FindElement(By.Name("byear")).Clear();
             driver.FindElement(By.Name("byear")).SendKeys("1984");
             driver.FindElement(By.Name("aday")).Click();
+
+            return this;
 
         }
 
