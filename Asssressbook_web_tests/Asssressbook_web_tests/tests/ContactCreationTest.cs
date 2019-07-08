@@ -11,18 +11,18 @@ namespace Addressbook_web_tests
         [Test]
         public void ContactCreationTest()
         {
-            navigator.GoToHomePage();
-            loginHelper.Login(new AccountData("admin", "secret"));
-            contactHelper.InitContactCreation();
+            app.Navigator.GoToHomePage();
+            app.Auth.Login(new AccountData("admin", "secret"));
+            app.Contact.InitContactCreation();
             ContactData contact = new ContactData("FirstName");
             contact.Middlename = "MiddleName";
             contact.Lastname = "LastName";
             contact.Nickname = "Nickname";
             contact.Email1 = "test1@test.ru";
             contact.HomeTel = "+7-496-123-45-67";
-            contactHelper.FillContactForm(contact);
-            contactHelper.SubmitContactCreation();
-            loginHelper.Logout();
+            app.Contact.FillContactForm(contact);
+            app.Contact.SubmitContactCreation();
+            app.Auth.Logout();
         }
 
 
