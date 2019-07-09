@@ -5,8 +5,6 @@ using System.Text;
 using System.Threading.Tasks;
 using NUnit.Framework;
 
-
-
 namespace Addressbook_web_tests
 {
     [TestFixture]
@@ -15,6 +13,7 @@ namespace Addressbook_web_tests
         [Test]
         public void ContactRemovalTest()
         {
+            app.Contact.Exists();
             app.Contact.Remove(1);
         }
 

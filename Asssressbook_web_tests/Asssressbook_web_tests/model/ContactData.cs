@@ -1,8 +1,10 @@
-﻿
+﻿using System.Collections.Generic;
+using System;
+
 
 namespace Addressbook_web_tests
 {
-    public class ContactData
+    public class ContactData : IEquatable<ContactData>
     {
         private string firstname;
         private string middlename = "";
@@ -236,5 +238,29 @@ namespace Addressbook_web_tests
                 notes = value;
             }
         }
+
+        public bool Equals(ContactData other)
+        {
+            if (Object.ReferenceEquals(other, null))
+            {
+                return false;
+            }
+            if (Object.ReferenceEquals(this, other))
+            {
+                if (Firstname == other.Firstname)
+                {
+                    return Lastname == other.Lastname;
+                }
+                return true;
+            }
+            return Firstname == other.Firstname && Lastname == other.Lastname;
+
+        }
+
+        public int GetHashCode()
+        {
+            return Firstname.GetHashCode();
+        }
+
     }
 }

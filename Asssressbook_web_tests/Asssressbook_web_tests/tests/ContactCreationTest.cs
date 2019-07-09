@@ -1,7 +1,6 @@
 ﻿
 using NUnit.Framework;
 
-
 namespace Addressbook_web_tests
 {
     [TestFixture]
@@ -11,8 +10,6 @@ namespace Addressbook_web_tests
         [Test]
         public void ContactCreationTest()
         {
-
-            app.Contact.InitContactCreation();
             ContactData contact = new ContactData("FirstName");
             contact.Middlename = "MiddleName";
             contact.Lastname = "LastName";
@@ -22,15 +19,12 @@ namespace Addressbook_web_tests
             app.Contact.Create(contact);
 
         }
-                [Test]
+        [Test]
         public void EmptyContactCreationTest()
         {
-            app.Contact.InitContactCreation();
             ContactData contact = new ContactData("");
             app.Contact.Create(contact);
 
         }
-
-
     }
 }

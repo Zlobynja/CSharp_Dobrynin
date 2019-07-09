@@ -1,6 +1,5 @@
 ﻿using NUnit.Framework;
 
-
 namespace Addressbook_web_tests
 {
     [TestFixture]
@@ -10,8 +9,8 @@ namespace Addressbook_web_tests
         [Test]
         public void GroupRemovalTest()
         {
-
-            app.Groups.Remove(1);
+            app.Groups.Exists();
+            app.Groups.Remove(0);
         }
 
     }
