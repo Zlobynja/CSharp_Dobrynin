@@ -1,4 +1,5 @@
-﻿using NUnit.Framework;
+﻿using System;
+using NUnit.Framework;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Firefox;
 using OpenQA.Selenium.Support.UI;
@@ -21,6 +22,15 @@ namespace Addressbook_web_tests
             return this;
         }
 
+        public ContactHelper Remove(int v)
+        {
+            manager.Navigator.GoToHomePage();
+            SelectContact(v);
+            RemoveContact();
+            return this;
+        }
+
+
         public ContactHelper SubmitContactCreation()
         {
 
@@ -38,7 +48,7 @@ namespace Addressbook_web_tests
         }
         public ContactHelper Modify(int v, ContactData newdata)
         {
-
+            manager.Navigator.GoToHomePage();
             SelectContact(v);
             InitContactModification(v);
             FillContactForm(newdata);
@@ -101,8 +111,8 @@ namespace Addressbook_web_tests
 
         public ContactHelper InitContactModification(int index)
         {
-            string myString = index.ToString();
-            driver.FindElement(By.XPath("(//img[@alt='Edit'])[" + myString + "]")).Click();
+
+            driver.FindElement(By.XPath("(//img[@alt='Edit'])[" + index + "]")).Click();
 
             return this;
         }
@@ -115,11 +125,16 @@ namespace Addressbook_web_tests
 
         public ContactHelper SelectContact(int index)
         {
-            string myString = index.ToString();
-            driver.FindElement(By.Id(myString)).Click();
+            driver.FindElement(By.XPath("(//input[@name='selected[]'])[" + index + "]")).Click();
             return this;
         }
 
+        public ContactHelper RemoveContact()
+        {
+            driver.FindElement(By.XPath("//input[@value='Delete']")).Click();
+            driver.SwitchTo().Alert().Accept();
+            return this;
+        }
 
     }
 }
