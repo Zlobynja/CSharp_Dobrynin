@@ -36,6 +36,15 @@ namespace Addressbook_web_tests
             manager.Auth.Logout();
             return this;
         }
+        public ContactHelper Modify(int v, ContactData newdata)
+        {
+
+            SelectContact(v);
+            InitContactModification(v);
+            FillContactForm(newdata);
+            SubmitContactModification();
+            return this;
+        }
 
         public ContactHelper FillContactForm(ContactData contact)
         {
@@ -88,6 +97,27 @@ namespace Addressbook_web_tests
 
             return this;
 
+        }
+
+        public ContactHelper InitContactModification(int index)
+        {
+            string myString = index.ToString();
+            driver.FindElement(By.XPath("(//img[@alt='Edit'])[" + myString + "]")).Click();
+
+            return this;
+        }
+
+        public ContactHelper SubmitContactModification()
+        {
+            driver.FindElement(By.Name("update")).Click();
+            return this;
+        }
+
+        public ContactHelper SelectContact(int index)
+        {
+            string myString = index.ToString();
+            driver.FindElement(By.Id(myString)).Click();
+            return this;
         }
 
 
