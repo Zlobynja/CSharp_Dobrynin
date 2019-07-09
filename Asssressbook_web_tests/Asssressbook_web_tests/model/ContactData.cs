@@ -8,11 +8,17 @@ namespace Addressbook_web_tests
     {
         private string allPhones;
         private string allEmails;
+        private string detailsInfo;
 
         public ContactData(string firstName, string lastName)
         {
             Firstname = firstName;
             Lastname = lastName;
+        }
+
+        public ContactData(string detailsInfo)
+        {
+            this.detailsInfo = detailsInfo;
         }
 
         public string Firstname { get; set; }
@@ -56,6 +62,7 @@ namespace Addressbook_web_tests
             }
 
         }
+
         public string AllPhones
         {
             get
@@ -85,14 +92,14 @@ namespace Addressbook_web_tests
 
         }
 
-        private string Clean(string email)
+        public string Clean(string email)
         {
             if (email == null || email == "")
             {
                 return "";
             }
             return Regex.Replace(email, "[ ]", "") + "\r\n";
-            // return phone.Replace(" ","").Replace("-","").Replace("(","").Replace(")","") +"\r\n";
+
         }
 
         public bool Equals(ContactData other)
@@ -136,5 +143,7 @@ namespace Addressbook_web_tests
         {
             return "Firstname=" + Firstname + " Lastname " + Lastname;
         }
+
+
     }
 }
