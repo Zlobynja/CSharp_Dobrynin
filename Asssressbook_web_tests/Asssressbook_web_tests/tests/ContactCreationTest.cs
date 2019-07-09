@@ -1,5 +1,6 @@
-﻿
+﻿using System.Collections.Generic;
 using NUnit.Framework;
+
 
 namespace Addressbook_web_tests
 {
@@ -10,21 +11,32 @@ namespace Addressbook_web_tests
         [Test]
         public void ContactCreationTest()
         {
-            ContactData contact = new ContactData("FirstName");
+            List<ContactData> oldcontact = app.Contact.GetContactList();
+            ContactData contact = new ContactData("FirstName1", "LastName2");
             contact.Middlename = "MiddleName";
-            contact.Lastname = "LastName";
             contact.Nickname = "Nickname";
             contact.Email1 = "test1@test.ru";
             contact.HomeTel = "+7-496-123-45-67";
             app.Contact.Create(contact);
-
+            List<ContactData> newcontact = app.Contact.GetContactList();
+            oldcontact.Add(contact);
+            oldcontact.Sort();
+            newcontact.Sort();
+            Assert.AreEqual(oldcontact, newcontact);
         }
+
         [Test]
         public void EmptyContactCreationTest()
         {
-            ContactData contact = new ContactData("");
+            List<ContactData> oldcontact = app.Contact.GetContactList();
+            ContactData contact = new ContactData("", "");
             app.Contact.Create(contact);
-
+            List<ContactData> newcontact = app.Contact.GetContactList();
+            oldcontact.Add(contact);
+            oldcontact.Sort();
+            newcontact.Sort();
+            Assert.AreEqual(oldcontact.Count, newcontact.Count);
         }
+
     }
 }

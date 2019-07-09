@@ -1,17 +1,20 @@
 ﻿using System.Collections.Generic;
 using System;
 
+
 namespace Addressbook_web_tests
 {
-    public class GroupData : IEquatable<GroupData>
+    public class GroupData : IEquatable<GroupData>, IComparable<GroupData>
     {
         private string name;
         private string header = "";
         private string footer = "";
+
         public GroupData(string name)
         {
             this.name = name;
         }
+
         public string Name
         {
             get
@@ -24,6 +27,7 @@ namespace Addressbook_web_tests
             }
 
         }
+
         public string Header
         {
             get
@@ -34,7 +38,9 @@ namespace Addressbook_web_tests
             {
                 header = value;
             }
+
         }
+
         public string Footer
         {
             get
@@ -45,6 +51,16 @@ namespace Addressbook_web_tests
             {
                 footer = value;
             }
+
+        }
+
+        public int CompareTo(GroupData other)
+        {
+            if (Object.ReferenceEquals(other, null))
+            {
+                return 1;
+            }
+            return Name.CompareTo(other.Name);
         }
 
         public bool Equals(GroupData other)
@@ -60,9 +76,14 @@ namespace Addressbook_web_tests
             return Name == other.Name;
         }
 
-        public int GetHashCode()
+        public override int GetHashCode()
         {
             return Name.GetHashCode();
+        }
+
+        public override string ToString()
+        {
+            return "name=" + Name;
         }
     }
 }

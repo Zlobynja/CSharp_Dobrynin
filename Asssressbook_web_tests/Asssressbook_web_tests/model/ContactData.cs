@@ -4,7 +4,7 @@ using System;
 
 namespace Addressbook_web_tests
 {
-    public class ContactData : IEquatable<ContactData>
+    public class ContactData : IEquatable<ContactData>, IComparable<ContactData>
     {
         private string firstname;
         private string middlename = "";
@@ -25,10 +25,16 @@ namespace Addressbook_web_tests
         private string bmonth = "";
         private string byear = "";
         private string notes = "";
-        public ContactData(string firstname)
+
+
+
+
+        public ContactData(string firstname, string lastname)
         {
             this.firstname = firstname;
+            this.lastname = lastname;
         }
+
         public string Firstname
         {
             get
@@ -40,6 +46,7 @@ namespace Addressbook_web_tests
                 firstname = value;
             }
         }
+
         public string Middlename
         {
             get
@@ -51,6 +58,7 @@ namespace Addressbook_web_tests
                 middlename = value;
             }
         }
+
         public string Lastname
         {
             get
@@ -62,6 +70,7 @@ namespace Addressbook_web_tests
                 lastname = value;
             }
         }
+
         public string Nickname
         {
             get
@@ -73,6 +82,7 @@ namespace Addressbook_web_tests
                 nickname = value;
             }
         }
+
         public string Title
         {
             get
@@ -84,6 +94,7 @@ namespace Addressbook_web_tests
                 title = value;
             }
         }
+
         public string Company
         {
             get
@@ -95,6 +106,7 @@ namespace Addressbook_web_tests
                 company = value;
             }
         }
+
         public string CompanyAddress
         {
             get
@@ -106,6 +118,7 @@ namespace Addressbook_web_tests
                 companyaddress = value;
             }
         }
+
         public string HomeTel
         {
             get
@@ -117,6 +130,7 @@ namespace Addressbook_web_tests
                 hometel = value;
             }
         }
+
         public string MobileTel
         {
             get
@@ -128,6 +142,7 @@ namespace Addressbook_web_tests
                 mobiletel = value;
             }
         }
+
         public string WorkTel
         {
             get
@@ -139,6 +154,7 @@ namespace Addressbook_web_tests
                 worktel = value;
             }
         }
+
         public string Fax
         {
             get
@@ -150,6 +166,7 @@ namespace Addressbook_web_tests
                 fax = value;
             }
         }
+
         public string Email1
         {
             get
@@ -161,6 +178,7 @@ namespace Addressbook_web_tests
                 email1 = value;
             }
         }
+
         public string Email2
         {
             get
@@ -172,6 +190,7 @@ namespace Addressbook_web_tests
                 email2 = value;
             }
         }
+
         public string Email3
         {
             get
@@ -183,6 +202,7 @@ namespace Addressbook_web_tests
                 email3 = value;
             }
         }
+
         public string Homepage
         {
             get
@@ -194,6 +214,7 @@ namespace Addressbook_web_tests
                 homepage = value;
             }
         }
+
         public string Bday
         {
             get
@@ -205,6 +226,7 @@ namespace Addressbook_web_tests
                 bday = value;
             }
         }
+
         public string Bmonth
         {
             get
@@ -216,6 +238,7 @@ namespace Addressbook_web_tests
                 bmonth = value;
             }
         }
+
         public string Byear
         {
             get
@@ -227,6 +250,7 @@ namespace Addressbook_web_tests
                 byear = value;
             }
         }
+
         public string Notes
         {
             get
@@ -247,20 +271,38 @@ namespace Addressbook_web_tests
             }
             if (Object.ReferenceEquals(this, other))
             {
-                if (Firstname == other.Firstname)
-                {
-                    return Lastname == other.Lastname;
-                }
                 return true;
+            }
+
+            if (Lastname == other.Lastname)
+            {
+                return Firstname == other.Firstname;
             }
             return Firstname == other.Firstname && Lastname == other.Lastname;
 
         }
 
-        public int GetHashCode()
+        public override int GetHashCode()
         {
-            return Firstname.GetHashCode();
+            return Lastname.GetHashCode();
         }
 
+        public int CompareTo(ContactData other)
+        {
+            if (Object.ReferenceEquals(other, null))
+            {
+                return 1;
+            }
+            if (Lastname == other.Lastname)
+            {
+                return Firstname.CompareTo(other.Firstname);
+            }
+            return Lastname.CompareTo(other.Lastname);
+        }
+
+        public override string ToString()
+        {
+            return "Firstname=" + Firstname + " Lastname " + Lastname;
+        }
     }
 }

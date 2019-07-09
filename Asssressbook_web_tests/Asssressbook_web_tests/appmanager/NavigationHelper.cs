@@ -18,18 +18,20 @@ namespace Addressbook_web_tests
 
         public void GoToHomePage()
         {
-            if (driver.Url == baseURL + "addressbook/")
+            if (driver.Url == baseURL + "addressbook/"
+                && IsElementPresent(By.Id("delete")))
             {
                 return;
             }
             driver.Navigate().GoToUrl(baseURL + "addressbook/");
+
         }
 
 
         public void GoToGroupsPage()
         {
             if (driver.Url == baseURL + "addressbook/group.php"
-    && IsElementPresent(By.Name("new")))
+                && IsElementPresent(By.Name("new")))
             {
                 return;
             }
