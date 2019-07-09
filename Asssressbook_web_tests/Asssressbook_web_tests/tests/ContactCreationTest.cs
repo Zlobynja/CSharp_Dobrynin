@@ -11,31 +11,31 @@ namespace Addressbook_web_tests
         [Test]
         public void ContactCreationTest()
         {
-            List<ContactData> oldcontact = app.Contact.GetContactList();
+            List<ContactData> oldContact = app.Contact.GetContactList();
             ContactData contact = new ContactData("FirstName1", "LastName2");
-            contact.Middlename = "MiddleName";
-            contact.Nickname = "Nickname";
-            contact.Email1 = "test1@test.ru";
-            contact.HomeTel = "+7-496-123-45-67";
             app.Contact.Create(contact);
-            List<ContactData> newcontact = app.Contact.GetContactList();
-            oldcontact.Add(contact);
-            oldcontact.Sort();
-            newcontact.Sort();
-            Assert.AreEqual(oldcontact, newcontact);
+            Assert.AreEqual(oldContact.Count + 1, app.Contact.GetContactCount());
+
+            List<ContactData> newContact = app.Contact.GetContactList();
+            oldContact.Add(contact);
+            oldContact.Sort();
+            newContact.Sort();
+            Assert.AreEqual(oldContact, newContact);
         }
 
         [Test]
         public void EmptyContactCreationTest()
         {
-            List<ContactData> oldcontact = app.Contact.GetContactList();
+            List<ContactData> oldContact = app.Contact.GetContactList();
             ContactData contact = new ContactData("", "");
             app.Contact.Create(contact);
-            List<ContactData> newcontact = app.Contact.GetContactList();
-            oldcontact.Add(contact);
-            oldcontact.Sort();
-            newcontact.Sort();
-            Assert.AreEqual(oldcontact.Count, newcontact.Count);
+            Assert.AreEqual(oldContact.Count + 1, app.Contact.GetContactCount());
+
+            List<ContactData> newContact = app.Contact.GetContactList();
+            oldContact.Add(contact);
+            oldContact.Sort();
+            newContact.Sort();
+            Assert.AreEqual(oldContact, newContact);
         }
 
     }

@@ -15,13 +15,15 @@ namespace Addressbook_web_tests
             GroupData group = new GroupData("gr4");
             group.Header = "gr4header";
             group.Footer = "gr4footer";
-            List<GroupData> oldgroups = app.Groups.GetGroupList();
+            List<GroupData> oldGroups = app.Groups.GetGroupList();
             app.Groups.Create(group);
-            List<GroupData> newgroups = app.Groups.GetGroupList();
-            oldgroups.Add(group);
-            oldgroups.Sort();
-            newgroups.Sort();
-            Assert.AreEqual(oldgroups, newgroups);
+            Assert.AreEqual(oldGroups.Count + 1, app.Groups.GetGroupCount());
+
+            List<GroupData> newGroups = app.Groups.GetGroupList();
+            oldGroups.Add(group);
+            oldGroups.Sort();
+            newGroups.Sort();
+            Assert.AreEqual(oldGroups, newGroups);
         }
 
         [Test]
@@ -31,6 +33,8 @@ namespace Addressbook_web_tests
             List<GroupData> oldgroups = app.Groups.GetGroupList();
             GroupData group = new GroupData("");
             app.Groups.Create(group);
+            Assert.AreEqual(oldgroups.Count + 1, app.Groups.GetGroupCount());
+
             List<GroupData> newgroups = app.Groups.GetGroupList();
             oldgroups.Add(group);
             oldgroups.Sort();
@@ -45,11 +49,7 @@ namespace Addressbook_web_tests
             List<GroupData> oldgroups = app.Groups.GetGroupList();
             GroupData group = new GroupData("a'a");
             app.Groups.Create(group);
-            List<GroupData> newgroups = app.Groups.GetGroupList();
-            // oldgroups.Add(group); не надо добавлять, т.к.не создается запись
-            oldgroups.Sort();
-            newgroups.Sort();
-            Assert.AreEqual(oldgroups, newgroups);
+            Assert.AreEqual(oldgroups.Count + 1, app.Groups.GetGroupCount());
         }
     }
 }

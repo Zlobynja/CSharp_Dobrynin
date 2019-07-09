@@ -14,18 +14,28 @@ namespace Addressbook_web_tests
         public void ContactModificationTest()
         {
             app.Contact.Exists();
-            List<ContactData> oldcontact = app.Contact.GetContactList();
+            List<ContactData> oldContact = app.Contact.GetContactList();
+            ContactData oldData = oldContact[0];
 
-            ContactData newdata = new ContactData("1stName", "2ndName");
-            app.Contact.Modify(0, newdata);
+            ContactData newData = new ContactData("1stName", "2ndName");
+            app.Contact.Modify(0, newData);
+            Assert.AreEqual(oldContact.Count, app.Contact.GetContactCount());
 
+            List<ContactData> newContact = app.Contact.GetContactList();
+            oldContact[0].Firstname = newData.Firstname;
+            oldContact[0].Lastname = newData.Lastname;
+            oldContact.Sort();
+            newContact.Sort();
+            Assert.AreEqual(oldContact, newContact);
 
-            List<ContactData> newcontact = app.Contact.GetContactList();
-            oldcontact[0].Firstname = newdata.Firstname;
-            oldcontact[0].Lastname = newdata.Lastname;
-            oldcontact.Sort();
-            newcontact.Sort();
-            Assert.AreEqual(oldcontact, newcontact);
+            foreach (ContactData contact in newContact)
+            {
+                if (contact.Id == oldData.Id)
+                {
+                    Assert.AreEqual(newData.Firstname, oldData.Firstname);
+                    Assert.AreEqual(newData.Lastname, oldData.Lastname);
+                }
+            }
 
         }
     }

@@ -14,18 +14,30 @@ namespace Addressbook_web_tests
         public void GroupModificationTest()
         {
             app.Groups.Exists();
-            List<GroupData> oldgroups = app.Groups.GetGroupList();
+            List<GroupData> oldGroups = app.Groups.GetGroupList();
+            GroupData oldData = oldGroups[0];
 
-            GroupData newdata = new GroupData("gr6edited");
-            newdata.Header = "editedheader";
-            newdata.Footer = "editedfooter";
-            app.Groups.Modify(0, newdata);
-            List<GroupData> newgroups = app.Groups.GetGroupList();
+            GroupData newData = new GroupData("gr6edited");
+            newData.Header = "editedheader";
+            newData.Footer = "editedfooter";
 
-            oldgroups[0].Name = newdata.Name;
-            oldgroups.Sort();
-            newgroups.Sort();
-            Assert.AreEqual(oldgroups, newgroups);
+            app.Groups.Modify(0, newData);
+            Assert.AreEqual(oldGroups.Count, app.Groups.GetGroupCount());
+
+            List<GroupData> newGroups = app.Groups.GetGroupList();
+            oldGroups[0].Name = newData.Name;
+            oldGroups.Sort();
+            newGroups.Sort();
+            Assert.AreEqual(oldGroups, newGroups);
+
+            foreach (GroupData group in newGroups)
+            {
+                if (group.Id == oldData.Id)
+                {
+                    Assert.AreEqual(newData.Name, oldData.Name);
+                }
+            }
+
         }
     }
 }

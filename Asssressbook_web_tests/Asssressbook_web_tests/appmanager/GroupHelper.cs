@@ -6,14 +6,17 @@ using OpenQA.Selenium.Firefox;
 using OpenQA.Selenium.Support.UI;
 
 
-    namespace Addressbook_web_tests
+namespace Addressbook_web_tests
 {
     public class GroupHelper : HelperBase
     {
+
+
         public GroupHelper(ApplicationManager manager) : base(manager)
         {
             this.driver = driver;
         }
+
         public GroupHelper Remove(int v)
         {
             manager.Navigator.GoToGroupsPage();
@@ -22,19 +25,31 @@ using OpenQA.Selenium.Support.UI;
             RemoveGroup();
             manager.Navigator.ReturnToGroupsPage();
             return this;
-
         }
+
+        public int GetGroupCount()
+        {
+            return driver.FindElements(By.CssSelector("span.group")).Count;
+        }
+
+        private List<GroupData> groupCash = null;
 
         public List<GroupData> GetGroupList()
         {
-            List<GroupData> groups = new List<GroupData>();
-            manager.Navigator.GoToGroupsPage();
-            ICollection<IWebElement> elements = driver.FindElements(By.CssSelector("span.group"));
-            foreach (IWebElement element in elements)
+            if (groupCash == null)
             {
-                groups.Add(new GroupData(element.Text));
+                groupCash = new List<GroupData>();
+                manager.Navigator.GoToGroupsPage();
+                ICollection<IWebElement> elements = driver.FindElements(By.CssSelector("span.group"));
+                foreach (IWebElement element in elements)
+                {
+                    groupCash.Add(new GroupData(element.Text)
+                    {
+                        Id = element.FindElement(By.TagName("input")).GetAttribute("value")
+                    });
+                }
             }
-            return groups;
+            return new List<GroupData>(groupCash);
         }
 
         public GroupHelper Modify(int v, GroupData newdata)
@@ -47,8 +62,8 @@ using OpenQA.Selenium.Support.UI;
             SubmitGroupModification();
             manager.Navigator.ReturnToGroupsPage();
             return this;
-
         }
+
 
 
         public GroupHelper InitGroupCreation()
@@ -56,6 +71,7 @@ using OpenQA.Selenium.Support.UI;
             driver.FindElement(By.Name("new")).Click();
             return this;
         }
+
         public GroupHelper Create(GroupData group)
         {
             manager.Navigator.GoToGroupsPage();
@@ -65,40 +81,61 @@ using OpenQA.Selenium.Support.UI;
             manager.Navigator.ReturnToGroupsPage();
             return this;
         }
+
         public GroupHelper FillGroupForm(GroupData group)
         {
-            driver.FindElement(By.Name("group_name")).Clear();
-            driver.FindElement(By.Name("group_name")).SendKeys(group.Name);
-            driver.FindElement(By.Name("group_header")).Clear();
-            driver.FindElement(By.Name("group_header")).SendKeys(group.Header);
-            driver.FindElement(By.Name("group_footer")).Clear();
-            driver.FindElement(By.Name("group_footer")).SendKeys(group.Footer);
+            if (group.Header != null)
+            {
+                driver.FindElement(By.Name("group_name")).Clear();
+                driver.FindElement(By.Name("group_name")).SendKeys(group.Name);
+            }
+
+            if (group.Header != null)
+            {
+                driver.FindElement(By.Name("group_header")).Clear();
+                driver.FindElement(By.Name("group_header")).SendKeys(group.Header);
+            }
+            if (group.Footer != null)
+            {
+                driver.FindElement(By.Name("group_footer")).Clear();
+                driver.FindElement(By.Name("group_footer")).SendKeys(group.Footer);
+            }
             return this;
         }
+
         public GroupHelper SubmitGroupCreation()
         {
             driver.FindElement(By.Name("submit")).Click();
             driver.FindElement(By.Id("header"));
+            groupCash = null;
             return this;
         }
+
         public GroupHelper SelectGroup(int index)
         {
             driver.FindElement(By.XPath("(//input[@name='selected[]'])[" + (index + 1) + "]")).Click();
             return this;
         }
+
+
         public GroupHelper RemoveGroup()
         {
             driver.FindElement(By.Name("delete")).Click();
+            groupCash = null;
             return this;
         }
+
+
         public GroupHelper InitGroupModification()
         {
             driver.FindElement(By.Name("edit")).Click();
             return this;
         }
+
         public GroupHelper SubmitGroupModification()
         {
             driver.FindElement(By.Name("update")).Click();
+            groupCash = null;
             return this;
         }
         public GroupHelper Exists()
@@ -110,5 +147,6 @@ using OpenQA.Selenium.Support.UI;
             }
             return this;
         }
+
     }
 }

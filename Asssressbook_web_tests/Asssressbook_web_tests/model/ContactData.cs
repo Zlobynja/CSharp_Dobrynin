@@ -8,7 +8,7 @@ namespace Addressbook_web_tests
     {
         private string firstname;
         private string middlename = "";
-        private string lastname = "";
+        private string lastname;
         private string nickname = "";
         private string title = "";
         private string company = "";
@@ -31,237 +31,59 @@ namespace Addressbook_web_tests
 
         public ContactData(string firstname, string lastname)
         {
-            this.firstname = firstname;
-            this.lastname = lastname;
+            Firstname = firstname;
+            Lastname = lastname;
         }
 
-        public string Firstname
-        {
-            get
-            {
-                return firstname;
-            }
-            set
-            {
-                firstname = value;
-            }
-        }
+        public string Firstname { get; set; }
+        public string Middlename { get; set; }
+        public string Lastname { get; set; }
+        public string Nickname { get; set; }
+        public string Title { get; set; }
+        public string Id { get; set; }
 
-        public string Middlename
-        {
-            get
-            {
-                return middlename;
-            }
-            set
-            {
-                middlename = value;
-            }
-        }
 
-        public string Lastname
-        {
-            get
-            {
-                return lastname;
-            }
-            set
-            {
-                lastname = value;
-            }
-        }
+        public string Company { get; set; }
 
-        public string Nickname
-        {
-            get
-            {
-                return nickname;
-            }
-            set
-            {
-                nickname = value;
-            }
-        }
 
-        public string Title
-        {
-            get
-            {
-                return title;
-            }
-            set
-            {
-                title = value;
-            }
-        }
+        public string CompanyAddress { get; set; }
 
-        public string Company
-        {
-            get
-            {
-                return company;
-            }
-            set
-            {
-                company = value;
-            }
-        }
+        public string HomeTel { get; set; }
 
-        public string CompanyAddress
-        {
-            get
-            {
-                return companyaddress;
-            }
-            set
-            {
-                companyaddress = value;
-            }
-        }
 
-        public string HomeTel
-        {
-            get
-            {
-                return hometel;
-            }
-            set
-            {
-                hometel = value;
-            }
-        }
+        public string MobileTel { get; set; }
 
-        public string MobileTel
-        {
-            get
-            {
-                return mobiletel;
-            }
-            set
-            {
-                mobiletel = value;
-            }
-        }
 
-        public string WorkTel
-        {
-            get
-            {
-                return worktel;
-            }
-            set
-            {
-                worktel = value;
-            }
-        }
 
-        public string Fax
-        {
-            get
-            {
-                return fax;
-            }
-            set
-            {
-                fax = value;
-            }
-        }
+        public string WorkTel { get; set; }
 
-        public string Email1
-        {
-            get
-            {
-                return email1;
-            }
-            set
-            {
-                email1 = value;
-            }
-        }
 
-        public string Email2
-        {
-            get
-            {
-                return email2;
-            }
-            set
-            {
-                email2 = value;
-            }
-        }
+        public string Fax { get; set; }
 
-        public string Email3
-        {
-            get
-            {
-                return email3;
-            }
-            set
-            {
-                email3 = value;
-            }
-        }
 
-        public string Homepage
-        {
-            get
-            {
-                return homepage;
-            }
-            set
-            {
-                homepage = value;
-            }
-        }
+        public string Email1 { get; set; }
 
-        public string Bday
-        {
-            get
-            {
-                return bday;
-            }
-            set
-            {
-                bday = value;
-            }
-        }
 
-        public string Bmonth
-        {
-            get
-            {
-                return bmonth;
-            }
-            set
-            {
-                bmonth = value;
-            }
-        }
+        public string Email2 { get; set; }
 
-        public string Byear
-        {
-            get
-            {
-                return byear;
-            }
-            set
-            {
-                byear = value;
-            }
-        }
 
-        public string Notes
-        {
-            get
-            {
-                return notes;
-            }
-            set
-            {
-                notes = value;
-            }
-        }
+        public string Email3 { get; set; }
+
+
+        public string Homepage { get; set; }
+
+
+        public string Bday { get; set; }
+
+
+        public string Bmonth { get; set; }
+
+
+        public string Byear { get; set; }
+
+
+        public string Notes { get; set; }
+
 
         public bool Equals(ContactData other)
         {
