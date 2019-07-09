@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using OpenQA.Selenium;
+using OpenQA.Selenium.Chrome;
 using OpenQA.Selenium.Firefox;
 using OpenQA.Selenium.Support.UI;
 
@@ -23,7 +24,7 @@ namespace Addressbook_web_tests
 
         private ApplicationManager()
         {
-            driver = new FirefoxDriver();
+            driver = new ChromeDriver();
             baseURL = "http://localhost/";
             driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(4);
 
@@ -54,12 +55,13 @@ namespace Addressbook_web_tests
                 // Ignore errors if unable to close the browser
             }
         }
+
         public IWebDriver Driver
         {
             get
             {
-             return driver;
-             }
+                return driver;
+            }
         }
 
         public LoginHelper Auth
@@ -93,6 +95,9 @@ namespace Addressbook_web_tests
                 return contactHelper;
             }
         }
+
+
+
 
     }
 }
