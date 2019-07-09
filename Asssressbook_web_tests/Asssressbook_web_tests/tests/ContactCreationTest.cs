@@ -19,10 +19,16 @@ namespace Addressbook_web_tests
             contact.Nickname = "Nickname";
             contact.Email1 = "test1@test.ru";
             contact.HomeTel = "+7-496-123-45-67";
-            app.Contact
-                .FillContactForm(contact)
-                .SubmitContactCreation();
-            app.Auth.Logout();
+            app.Contact.Create(contact);
+
+        }
+                [Test]
+        public void EmptyContactCreationTest()
+        {
+            app.Contact.InitContactCreation();
+            ContactData contact = new ContactData("");
+            app.Contact.Create(contact);
+
         }
 
 

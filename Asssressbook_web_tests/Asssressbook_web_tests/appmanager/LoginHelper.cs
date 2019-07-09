@@ -8,7 +8,7 @@ namespace Addressbook_web_tests
     public class LoginHelper : HelperBase
     {
 
-        public LoginHelper(IWebDriver driver) : base(driver)
+        public LoginHelper(ApplicationManager manager):base(manager)
         {
             this.driver = driver;
         }

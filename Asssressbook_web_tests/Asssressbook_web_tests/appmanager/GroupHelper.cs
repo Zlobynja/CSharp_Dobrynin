@@ -10,13 +10,23 @@ namespace Addressbook_web_tests
     {
 
 
-        public GroupHelper(IWebDriver driver) : base(driver)
+        public GroupHelper(ApplicationManager manager) : base(manager)
         {
             this.driver = driver;
         }
         public GroupHelper InitGroupCreation()
         {
             driver.FindElement(By.Name("new")).Click();
+            return this;
+        }
+
+                public GroupHelper Create(GroupData group)
+        {
+            manager.Navigator.GoToGroupsPage();
+                InitGroupCreation();
+                FillGroupForm(group);
+                SubmitGroupCreation();
+            manager.Navigator.ReturnToGroupsPage();
             return this;
         }
 

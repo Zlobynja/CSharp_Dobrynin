@@ -9,7 +9,7 @@ namespace Addressbook_web_tests
     {
 
 
-        public ContactHelper(IWebDriver driver) : base(driver)
+        public ContactHelper(ApplicationManager manager) : base(manager)
         {
             this.driver = driver;
         }
@@ -25,6 +25,15 @@ namespace Addressbook_web_tests
         {
 
             driver.FindElement(By.Name("submit")).Click();
+            return this;
+        }
+
+                public ContactHelper Create(ContactData contact)
+        {
+
+            FillContactForm(contact);
+            SubmitContactCreation();
+            manager.Auth.Logout();
             return this;
         }
 
@@ -66,7 +75,7 @@ namespace Addressbook_web_tests
             driver.FindElement(By.Name("homepage")).SendKeys(contact.Homepage);
 
 
-            // fill birth date=14.06.1984
+         /*   // fill birth date=14.06.1984
             new SelectElement(driver.FindElement(By.Name("bday"))).SelectByText("14");
             driver.FindElement(By.XPath("//option[16]")).Click();
             driver.FindElement(By.Name("bmonth")).Click();
@@ -75,7 +84,7 @@ namespace Addressbook_web_tests
             driver.FindElement(By.Name("byear")).Click();
             driver.FindElement(By.Name("byear")).Clear();
             driver.FindElement(By.Name("byear")).SendKeys("1984");
-            driver.FindElement(By.Name("aday")).Click();
+            driver.FindElement(By.Name("aday")).Click();*/
 
             return this;
 
