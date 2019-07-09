@@ -1,38 +1,18 @@
 ﻿using System.Collections.Generic;
 using System;
-
+using System.Text.RegularExpressions;
 
 namespace Addressbook_web_tests
 {
     public class ContactData : IEquatable<ContactData>, IComparable<ContactData>
     {
-        private string firstname;
-        private string middlename = "";
-        private string lastname;
-        private string nickname = "";
-        private string title = "";
-        private string company = "";
-        private string companyaddress = "";
-        private string hometel = "";
-        private string mobiletel = "";
-        private string worktel = "";
-        private string fax = "";
-        private string email1 = "";
-        private string email2 = "";
-        private string email3 = "";
-        private string homepage = "";
-        private string bday = "";
-        private string bmonth = "";
-        private string byear = "";
-        private string notes = "";
+        private string allPhones;
+        private string allEmails;
 
-
-
-
-        public ContactData(string firstname, string lastname)
+        public ContactData(string firstName, string lastName)
         {
-            Firstname = firstname;
-            Lastname = lastname;
+            Firstname = firstName;
+            Lastname = lastName;
         }
 
         public string Firstname { get; set; }
@@ -41,49 +21,69 @@ namespace Addressbook_web_tests
         public string Nickname { get; set; }
         public string Title { get; set; }
         public string Id { get; set; }
-
-
+        public string Address { get; set; }
         public string Company { get; set; }
-
-
-        public string CompanyAddress { get; set; }
-
-        public string HomeTel { get; set; }
-
-
-        public string MobileTel { get; set; }
-
-
-
-        public string WorkTel { get; set; }
-
-
+        public string HomePhone { get; set; }
+        public string MobilePhone { get; set; }
+        public string WorkPhone { get; set; }
         public string Fax { get; set; }
-
-
         public string Email1 { get; set; }
-
-
         public string Email2 { get; set; }
-
-
         public string Email3 { get; set; }
-
-
         public string Homepage { get; set; }
-
-
         public string Bday { get; set; }
-
-
         public string Bmonth { get; set; }
-
-
         public string Byear { get; set; }
-
-
         public string Notes { get; set; }
 
+        public string AllEmails
+        {
+            get
+            {
+                if (allEmails != null)
+                {
+                    return allEmails;
+                }
+                else
+                {
+                    return (Email1 + "\r\n" + Email2 + "\r\n" + Email3 + "\r\n").Trim();
+                }
+            }
+
+            set
+            {
+                allEmails = value;
+            }
+
+        }
+        public string AllPhones
+        {
+            get
+            {
+                if (allPhones != null)
+                {
+                    return allPhones;
+                }
+                else
+                {
+                    return (CleanUp(HomePhone) + CleanUp(MobilePhone) + CleanUp(WorkPhone)).Trim();
+                }
+            }
+            set
+            {
+                allPhones = value;
+            }
+        }
+
+        private string CleanUp(string phone)
+        {
+            if (phone == null || phone == "")
+            {
+                return "";
+            }
+            return Regex.Replace(phone, "[- ()]", "") + "\r\n";
+            // return phone.Replace(" ","").Replace("-","").Replace("(","").Replace(")","") +"\r\n";
+        }
 
         public bool Equals(ContactData other)
         {

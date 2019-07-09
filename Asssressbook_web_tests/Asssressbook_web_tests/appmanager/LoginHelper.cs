@@ -1,4 +1,5 @@
-﻿using NUnit.Framework;
+﻿using System;
+using NUnit.Framework;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Firefox;
 using OpenQA.Selenium.Support.UI;
@@ -8,10 +9,11 @@ namespace Addressbook_web_tests
     public class LoginHelper : HelperBase
     {
 
-        public LoginHelper(ApplicationManager manager):base(manager)
+        public LoginHelper(ApplicationManager manager) : base(manager)
         {
             this.driver = driver;
         }
+
         public void Login(AccountData account)
         {
             if (IsLoggedIn())
@@ -24,6 +26,7 @@ namespace Addressbook_web_tests
             }
             Type(By.Name("user"), account.Username);
             Type(By.Name("pass"), account.Password);
+            driver.FindElement(By.XPath("//input[@value='Login']")).Click();
         }
 
         public bool IsLoggedIn()
@@ -34,11 +37,16 @@ namespace Addressbook_web_tests
         public bool IsLoggedIn(AccountData account)
         {
             return IsLoggedIn()
-                && driver.FindElement(By.Name("logout")).FindElement(By.TagName("b")).Text
-                == "(" + account.Username + ")";
+                && GetLoggedUserName() == account.Username;
+
+
         }
 
-
+        private string GetLoggedUserName()
+        {
+            string text = driver.FindElement(By.Name("logout")).FindElement(By.TagName("b")).Text;
+            return text.Substring(1, text.Length - 2);
+        }
 
         public void Logout()
         {
@@ -51,5 +59,4 @@ namespace Addressbook_web_tests
         }
 
     }
-
 }
