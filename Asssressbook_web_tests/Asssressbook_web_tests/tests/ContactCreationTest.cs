@@ -2,7 +2,7 @@
 using System.IO;
 using NUnit.Framework;
 using Newtonsoft.Json;
-
+using System;
 
 namespace Addressbook_web_tests
 {
@@ -63,6 +63,21 @@ namespace Addressbook_web_tests
                     newContact.Sort();
                     Assert.AreEqual(oldContact, newContact);
                 } */
+
+        [Test]
+        public void TestDBConnectivityToContact()
+        {
+            DateTime start = DateTime.Now;
+            List<ContactData> oldContact = app.Contact.GetContactList();
+            DateTime end = DateTime.Now;
+            System.Console.Out.WriteLine(end.Subtract(start));
+
+            start = DateTime.Now;
+            List<ContactData> fromDB = ContactData.GetAll();
+            end = DateTime.Now;
+            System.Console.Out.WriteLine(end.Subtract(start));
+
+        }
 
     }
 }
