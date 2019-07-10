@@ -5,6 +5,7 @@ using NUnit.Framework;
 using System.Xml;
 using System.Xml.Serialization;
 using Newtonsoft.Json;
+using System.Linq;
 
 
 namespace Addressbook_web_tests
@@ -95,5 +96,23 @@ namespace Addressbook_web_tests
             app.Groups.Create(group);
             Assert.AreEqual(oldgroups.Count + 1, app.Groups.GetGroupCount());
         }
+
+        [Test]
+
+        public void TestDBConnectivity()
+        {
+            DateTime start = DateTime.Now;
+            List<GroupData> fromUi = app.Groups.GetGroupList();
+            DateTime end = DateTime.Now;
+            System.Console.Out.WriteLine(end.Subtract(start));
+
+            start = DateTime.Now;
+            List<GroupData> fromDb = GroupData.GetAll();
+            end = DateTime.Now;
+            System.Console.Out.WriteLine(end.Subtract(start));
+
+
+        }
+
     }
 }
