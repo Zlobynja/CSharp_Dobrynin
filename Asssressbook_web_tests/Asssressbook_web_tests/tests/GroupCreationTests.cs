@@ -11,7 +11,7 @@ using System.Linq;
 namespace Addressbook_web_tests
 {
     [TestFixture]
-    public class GroupCreationTests : AuthTestBase
+    public class GroupCreationTests : GroupTestBase
     {
         public static IEnumerable<GroupData> RandomGroupDataProvider()
         {
@@ -62,11 +62,11 @@ namespace Addressbook_web_tests
         public void GroupCreationTest(GroupData group)
         {
 
-            List<GroupData> oldGroups = app.Groups.GetGroupList();
+            List<GroupData> oldGroups = GroupData.GetAll();
             app.Groups.Create(group);
             Assert.AreEqual(oldGroups.Count + 1, app.Groups.GetGroupCount());
 
-            List<GroupData> newGroups = app.Groups.GetGroupList();
+            List<GroupData> newGroups = GroupData.GetAll();
             oldGroups.Add(group);
             oldGroups.Sort();
             newGroups.Sort();
@@ -100,7 +100,9 @@ namespace Addressbook_web_tests
         [Test]
 
         public void TestDBConnectivity()
+
         {
+
             DateTime start = DateTime.Now;
             List<GroupData> fromUi = app.Groups.GetGroupList();
             DateTime end = DateTime.Now;
@@ -110,6 +112,8 @@ namespace Addressbook_web_tests
             List<GroupData> fromDb = GroupData.GetAll();
             end = DateTime.Now;
             System.Console.Out.WriteLine(end.Subtract(start));
+
+
 
 
         }

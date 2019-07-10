@@ -71,5 +71,17 @@ namespace Addressbook_web_tests
                 // db.Close(); не надо прописывать, т.к. автоматом закрывается
             }
         }
+
+        public List<ContactData> GetContacts()
+        {
+            using (AddressbookDB db = new AddressbookDB())
+            {
+                return (from c in db.Contacts
+                        from gcr in db.GCR.Where(p => p.GroupId == Id && p.ContactId == c.Id)
+                        select c).Distinct().ToList();
+
+
+            }
+        }
     }
 }
