@@ -1,64 +1,62 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using System.IO;
 using NUnit.Framework;
 
 
 namespace Addressbook_web_tests
 {
     [TestFixture]
-    public class GroupCreationTests : AuthTestBase
+    public class ContactCreationTests : AuthTestBase
     {
-        public static IEnumerable<GroupData> RandomGroupDataProvider()
+        public static IEnumerable<ContactData> RandomContactDataProvider()
         {
-            List<GroupData> groups = new List<GroupData>();
+            List<ContactData> contacts = new List<ContactData>();
             for (int i = 0; i < 5; i++)
             {
-                groups.Add(new GroupData(GenerateRandomString(30))
-                {
-                    Header = GenerateRandomString(100),
-                    Footer = GenerateRandomString(100)
-                });
+                contacts.Add(new ContactData(GenerateRandomString(30), GenerateRandomString(30)));
             }
-            return groups;
+            return contacts;
         }
 
-
-        [Test, TestCaseSource("RandomGroupDataProvider")]
-
-        public void GroupCreationTest(GroupData group)
+        public static IEnumerable<ContactData> RandomContactDataFromCsvFile()
         {
-
-            List<GroupData> oldGroups = app.Groups.GetGroupList();
-            app.Groups.Create(group);
-            Assert.AreEqual(oldGroups.Count + 1, app.Groups.GetGroupCount());
-
-            List<GroupData> newGroups = app.Groups.GetGroupList();
-            oldGroups.Add(group);
-            oldGroups.Sort();
-            newGroups.Sort();
-            Assert.AreEqual(oldGroups, newGroups);
+            List<ContactData> contacts = new List<ContactData>();
+            string[] lines = File.ReadAllLines(@"contact.csv");
+            foreach (string l in lines)
+            {
+                string[] parts = l.Split(',');
+                contacts.Add(new ContactData(parts[0], parts[1]));
+            }
+            return contacts;
         }
 
-        /*   [Test]
-             public void EmptyGroupCreationTest()
-             {               
-                 List<GroupData> oldgroups = app.Groups.GetGroupList();
-                 GroupData group = new GroupData("");
-                 app.Groups.Create(group);
-                 Assert.AreEqual(oldgroups.Count+1, app.Groups.GetGroupCount());
-                 List<GroupData> newgroups = app.Groups.GetGroupList();
-                 oldgroups.Add(group);
-                 oldgroups.Sort();
-                 newgroups.Sort();
-                 Assert.AreEqual(oldgroups, newgroups);
-             }
-            [Test]
-             public void BadGroupCreationTest()
-             {
-                  List<GroupData> oldgroups = app.Groups.GetGroupList();
-                  GroupData group = new GroupData("a'a");
-                  app.Groups.Create(group);
-                  Assert.AreEqual(oldgroups.Count+1, app.Groups.GetGroupCount());
-             }*/
+        [Test, TestCaseSource("RandomContactDataFromCsvFile")]
+        public void ContactCreationTest(ContactData contact)
+        {
+            List<ContactData> oldContact = app.Contact.GetContactList();
+            app.Contact.Create(contact);
+            Assert.AreEqual(oldContact.Count + 1, app.Contact.GetContactCount());
+
+            List<ContactData> newContact = app.Contact.GetContactList();
+            oldContact.Add(contact);
+            oldContact.Sort();
+            newContact.Sort();
+            Assert.AreEqual(oldContact, newContact);
+        }
+        /*
+                [Test]
+                public void EmptyContactCreationTest()
+                {
+                    List<ContactData> oldContact = app.Contact.GetContactList();
+                    ContactData contact = new ContactData("", "");
+                    app.Contact.Create(contact);
+                    Assert.AreEqual(oldContact.Count + 1, app.Contact.GetContactCount());
+                    List<ContactData> newContact = app.Contact.GetContactList();
+                    oldContact.Add(contact);
+                    oldContact.Sort();
+                    newContact.Sort();
+                    Assert.AreEqual(oldContact, newContact);
+                } */
+
     }
 }
