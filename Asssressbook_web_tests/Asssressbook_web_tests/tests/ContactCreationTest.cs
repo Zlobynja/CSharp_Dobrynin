@@ -1,5 +1,7 @@
 ﻿using System.Collections.Generic;
+using System.IO;
 using NUnit.Framework;
+using Newtonsoft.Json;
 
 
 namespace Addressbook_web_tests
@@ -17,7 +19,24 @@ namespace Addressbook_web_tests
             return contacts;
         }
 
-        [Test, TestCaseSource("RandomContactDataProvider")]
+        public static IEnumerable<ContactData> RandomContactDataFromCsvFile()
+        {
+            List<ContactData> contacts = new List<ContactData>();
+            string[] lines = File.ReadAllLines(@"contact.csv");
+            foreach (string l in lines)
+            {
+                string[] parts = l.Split(',');
+                contacts.Add(new ContactData(parts[0], parts[1]));
+            }
+            return contacts;
+        }
+        public static IEnumerable<ContactData> RandomContactDataFromJsonFile()
+        {
+            return JsonConvert.DeserializeObject<List<ContactData>>(
+                File.ReadAllText(@"contacts.json"));
+        }
+
+        [Test, TestCaseSource("RandomContactDataFromJsonFile")]
         public void ContactCreationTest(ContactData contact)
         {
             List<ContactData> oldContact = app.Contact.GetContactList();
