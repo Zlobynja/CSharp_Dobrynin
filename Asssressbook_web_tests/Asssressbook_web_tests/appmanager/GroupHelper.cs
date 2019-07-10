@@ -167,10 +167,23 @@ namespace Addressbook_web_tests
         }
         public GroupHelper Exists()
         {
+
             if (!IsElementPresent(By.Name("selected[]")))
             {
-                GroupData newgroup = new GroupData("newgroup");
+                GroupData newgroup = new GroupData("newgroup1");
                 Create(newgroup);
+            }
+            return this;
+        }
+
+        public GroupHelper IsGroupExists()
+        {
+            List<GroupData> groupsList = GroupData.GetAll();
+
+            if (groupsList.Count == 0)
+            {
+                GroupData groupWithContact = new GroupData("newgr");
+                Create(groupWithContact);
             }
             return this;
         }

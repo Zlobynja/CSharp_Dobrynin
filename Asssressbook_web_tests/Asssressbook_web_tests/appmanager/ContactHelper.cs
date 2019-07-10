@@ -35,6 +35,75 @@ namespace Addressbook_web_tests
 
         }
 
+
+
+        public ContactHelper IsContactExists(ContactData contact)
+        {
+            if (contact == null)
+            {
+                ContactData newcontact = new ContactData("Firstname12", "Lastname12");
+                Create(newcontact);
+            }
+            return this;
+        }
+
+        public void RemoveContactFromGroup(ContactData contact, GroupData group)
+        {
+            manager.Navigator.GoToHomePage();
+            SetGroupFilter(group.Name);
+            SelectContact(contact.Id);
+
+            RemoveFromGroup(group.Name);
+
+            new WebDriverWait(driver, TimeSpan.FromSeconds(10))
+               .Until(d => d.FindElements(By.CssSelector("div.msgbox")).Count > 0);
+        }
+
+        private void SetGroupFilter(string group)
+        {
+            new SelectElement(driver.FindElement(By.Name("group"))).SelectByText(group);
+        }
+
+        public ContactHelper RemoveFromGroup(string groupname)
+        {
+            driver.FindElement(By.XPath("//input[@name='remove']")).Click();
+            return this;
+        }
+
+        private void ClickToGroupLink(string name)
+        {
+
+            driver.FindElement(By.LinkText(name)).Click();
+        }
+
+        public void AddContactToGrooup(ContactData contact, GroupData group)
+        {
+            manager.Navigator.GoToHomePage();
+            ClearGroupFilter();
+            SelectContact(contact.Id);
+            SelectGroupToAdd(group.Name);
+            CommitAddingContactToGroup();
+
+            new WebDriverWait(driver, TimeSpan.FromSeconds(10))
+               .Until(d => d.FindElements(By.CssSelector("div.msgbox")).Count > 0);
+
+        }
+
+        private void CommitAddingContactToGroup()
+        {
+            driver.FindElement(By.Name("add")).Click();
+        }
+
+        private void SelectGroupToAdd(string name)
+        {
+            new SelectElement(driver.FindElement(By.Name("to_group"))).SelectByText(name);
+        }
+
+        private void ClearGroupFilter()
+        {
+            new SelectElement(driver.FindElement(By.Name("group"))).SelectByText("[all]");
+        }
+
         public string GetContactInformationFromDetails(int index)
         {
             manager.Navigator.GoToHomePage();
@@ -356,7 +425,6 @@ namespace Addressbook_web_tests
             driver.SwitchTo().Alert().Accept();
             contactCashe = null;
             return this;
-
         }
         public ContactHelper Exists()
         {
@@ -381,6 +449,19 @@ namespace Addressbook_web_tests
                 return "";
             }
             return somedata.Trim() + "\r\n";
+        }
+
+        public ContactHelper IsContactExists()
+        {
+            List<ContactData> contacts = ContactData.GetAll();
+
+            if (contacts.Count == 0)
+            {
+                ContactData contactToGroup = new ContactData("newf", "newn");
+                Create(contactToGroup);
+            }
+
+            return this;
         }
     }
 }
